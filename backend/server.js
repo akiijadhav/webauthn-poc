@@ -5,8 +5,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+// Update CORS to allow the deployed frontend domain
 app.use(cors({
-  origin: 'https://webauthn-poc-nine.vercel.app', // frontend URL
+  origin: 'https://webauthn-poc-nine.vercel.app', // Frontend URL (deployed on Vercel)
   credentials: true
 }));
 app.use(express.json());
@@ -46,7 +47,7 @@ app.post('/register/start', (req, res) => {
     return res.status(400).json({ error: 'User already exists' });
   }
 
-  // Generate challenge
+  // Generate a challenge and store it for this username
   const challenge = generateChallenge();
   challenges.set(username, challenge);
 
@@ -55,6 +56,7 @@ app.post('/register/start', (req, res) => {
     challenge: base64urlEncode(challenge),
     rp: {
       name: 'WebAuthn Demo',
+      // Use the RP_ID environment variable if available (set to your frontend domain)
       id: process.env.RP_ID || 'localhost'
     },
     user: {
@@ -70,6 +72,7 @@ app.post('/register/start', (req, res) => {
     attestation: 'none',
     authenticatorSelection: {
       userVerification: 'preferred'
+      // Note: We are not forcing a platform authenticator here, so the user may choose a cross-platform one.
     },
     extensions: {
       credProps: true
@@ -114,7 +117,7 @@ app.post('/login/start', (req, res) => {
     allowCredentials: [{
       id: user.credential.id,
       type: 'public-key',
-      transports: ['internal']
+      transports: ['hybrid', 'internal']
     }],
     timeout: 60000,
     userVerification: 'preferred',
