@@ -1,9 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://webauthn-poc.vercel.app', // frontend URL
+  credentials: true
+}));
 app.use(express.json());
 
 // In-memory storage for users and their credentials
@@ -50,7 +55,7 @@ app.post('/register/start', (req, res) => {
     challenge: base64urlEncode(challenge),
     rp: {
       name: 'WebAuthn Demo',
-      id: 'localhost'
+      id: process.env.RP_ID || 'localhost'
     },
     user: {
       id: base64urlEncode(Buffer.from(username)),
@@ -113,7 +118,7 @@ app.post('/login/start', (req, res) => {
     }],
     timeout: 60000,
     userVerification: 'preferred',
-    rpId: 'localhost'
+    rpId: process.env.RP_ID || 'localhost'
   };
 
   res.json(publicKeyCredentialRequestOptions);

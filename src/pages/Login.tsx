@@ -10,7 +10,7 @@ function Login() {
     e.preventDefault();
     try {
       // Start authentication process
-      const startResponse = await fetch('http://localhost:3000/login/start', {
+      const startResponse = await fetch(`${import.meta.env.VITE_API_BASE}/login/start`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username })
@@ -45,7 +45,7 @@ function Login() {
       const credentialResponse = credential.response as AuthenticatorAssertionResponse;
       
       // Complete authentication
-      const completeResponse = await fetch('http://localhost:3000/login/complete', {
+      const completeResponse = await fetch(`${import.meta.env.VITE_API_BASE}/login/complete`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

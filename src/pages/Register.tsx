@@ -10,7 +10,7 @@ function Register() {
     e.preventDefault();
     try {
       // Start registration process
-      const startResponse = await fetch('http://localhost:3000/register/start', {
+      const startResponse = await fetch(`${import.meta.env.VITE_API_BASE}/register/start`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username })
@@ -41,7 +41,7 @@ function Register() {
       const credentialResponse = credential.response as AuthenticatorAttestationResponse;
       
       // Complete registration
-      const completeResponse = await fetch('http://localhost:3000/register/complete', {
+      const completeResponse = await fetch(`${import.meta.env.VITE_API_BASE}/register/complete`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
