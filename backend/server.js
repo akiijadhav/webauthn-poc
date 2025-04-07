@@ -6,7 +6,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: 'https://webauthn-poc.vercel.app', // frontend URL
+  origin: 'https://webauthn-poc-nine.vercel.app', // frontend URL
   credentials: true
 }));
 app.use(express.json());
