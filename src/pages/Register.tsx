@@ -24,6 +24,8 @@ function Register() {
           atob(options.challenge.replace(/-/g, '+').replace(/_/g, '/')),
           c => c.charCodeAt(0)
       );
+      // Convert user.id buffer object to Uint8Array
+      options.user.id = new Uint8Array(options.user.id.data);
 
       // Step 3: Create credentials using WebAuthn API
       const credential = await navigator.credentials.create({
