@@ -67,7 +67,6 @@ function Login() {
   };
 
   return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-6">
           <h2 className="text-2xl font-bold mb-4">Login with Passkey</h2>
           <form onSubmit={handleLogin} className="space-y-4">
@@ -82,7 +81,6 @@ function Login() {
               <p className="mt-4 text-center text-sm font-medium text-gray-900">{status}</p>
           )}
         </div>
-      </div>
   );
 }
 
