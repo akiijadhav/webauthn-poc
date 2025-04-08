@@ -40,5 +40,4 @@ Test it on:
 
 1. **Clone this repo**
    ```bash
-   git clone https://github.com/your-username/webauthn-passkey-demo.git
-   cd webauthn-passkey-demo
+   git@github.com:akiijadhav/webauthn-poc.git
